@@ -1,5 +1,5 @@
 # GroupMouseTrack (GMT)
-GMT is aimed at facilitating the study of mouse behavior in social interactions. GMT utilizes state-of-the-art technology to perform pose estimation, tracking, and identification of several interacting identical-looking mice, without the need for physical markers. The project applies an end-to-end solution based on Deep Neural Networks (DNN) with the help of DeepLabCut (DLC), a Python framework built on TensorFlow for tracking and localizing several mice bodyparts. Though not required for tracking, GMT provides a set of scripts that seamlessly integrate DLC with an RFID (Radio Frequency Identification) system. This allows for distinguishing between individuals by matching the their RFIDs with their positions in video, and automate periodic correction of potential misidentifications (ID switches) made by the trained Deep Neural Network. This approach eliminates the need for manual inspection. 
+GMT is aimed at facilitating the study of mouse behavior in social interactions. GMT utilizes state-of-the-art technology to perform pose estimation, tracking, and identification of several interacting identical-looking mice, without the need for physical markers. The project applies an end-to-end solution based on Deep Neural Networks (DNN) with the help of [DeepLabCut (DLC)](https://deeplabcut.github.io/DeepLabCut), a Python framework built on TensorFlow for tracking and localizing several mice bodyparts. Though not required for tracking, GMT provides a set of scripts that seamlessly integrate DLC with an RFID (Radio Frequency Identification) system. This allows for distinguishing between individuals by matching the their RFIDs with their positions in video, and automate periodic correction of potential misidentifications (ID switches) made by the trained Deep Neural Network. This approach eliminates the need for manual inspection. 
 
 todo: add demo gif here.
 
@@ -13,11 +13,12 @@ todo: add demo gif here.
 # Overview
 The project can be used to record videos of laboratory mice in a homecage suited on an arena of RFID sensors for prolonged periods, and allows for the analysis of new videos from similar experimental setups. The project scripts have been designed to be scalable, customizable, and user-friendly. Additionally, it incorporates an automated method that allows the user to specify the positions of RFID readers dynamically on the video frame without requiring any prior configuration. This feature is particularly useful for maintaining consistency while adjusting the camera position. Although the default number of RFID readers is eight, the scripts can accommodate any number of RFID readers. The trained model has been developed on images containing three mice, but this is not an absolute limit. Users can perform experiments with more or fewer mice of any coat color during inference.
 
+# Workflow
 The project consists of four main stages that are independent of each other:
 
 **<u>1. Data Acquisition:**</u> 
   
-  **<u>1.1. Video Recording**</u>**  
+  **<u>1.1. Video Recording**</u>  
     In this stage, you will learn how to record video data. If you already have video data and do not need to acquire new data, you can skip this step and move on to the next stage.
 
   **<u>1.2. RFID Detection</u>**  
@@ -32,6 +33,11 @@ The DLC dummy IDs will be matched and replaced with their associated RFID tags i
 **<u>4. Identity Verification</u>** 
 Finally, potential ID-switches between individuals made by DLC will be detected and corrected in order to ensure accurate identification.
 
+<!-- ![abstract-expermental-protocol](abstract-expermental-protocol.png) -->
+<figure>
+  <img src="abstract-expermental-protocol.png" alt="my alt text" width="400"/>
+  <!-- <figcaption>Experimental setup overview.</figcaption> -->
+</figure>
 
 # Experimental setup
 
@@ -45,8 +51,6 @@ This documentation provides a comprehensive guide to set up the experiment. You 
 * RFID microchipped mice
 * A router
 
-
-
 The home-cage is supposed to house the RFID implemented mice. It should be provided with enough food and water. The camera should be placed above the cage to capture the mice's activity. For this project, a small 5-megapixel Raspberry Pi camera (or any compatible camera would work) with two infrared LEDs that automatically switches between day and night mode was used. The Pi-Camera must be connected to a Raspberry Pi (RPi) running on the Raspbian operating system via a flex cable. The RFID reader device should be placed underneath the customized home-cage and connected to a Windows PC via an Ethernet wire, as shown in Figure 2. 
 
 <figure>
@@ -54,20 +58,45 @@ The home-cage is supposed to house the RFID implemented mice. It should be provi
   <!-- <figcaption>Experimental setup overview.</figcaption> -->
 </figure>
 
-# Software
-## Installing GMT
-You can clone the scripts from GitHub by firing up the shell and typing:
+# Software Installation
+## Prerequisites
+Before installing the software, make sure you have Python and DLC (DeepLabCut) installed on your PC. Please follow the following instructions
+
+## Steps for Installation
+### Step 1: Install Anaconda or Miniconda
+Anaconda or Miniconda provides an easy way to install Python and additional packages. You can download and install Anaconda from [here](https://docs.anaconda.com/anaconda/install/windows/) or Miniconda from [here](https://docs.conda.io/en/latest/miniconda.html).
+
+### Step 2: Clone the Repository
+Clone the GroupMouseTrack repository from GitHub using the following command in the shell:
 
 ```sh
 git clone https://github.com/WinterLab-Berlin/GroupMouseTrack.git
 ```
-Alternatively, you can go to the Git repository and download the package manually.
+Alternatively, you can download the package manually from the Git repository. It can be downloaded anywhere on your system, even in the Downloads folder.
 
-<!-- ![abstract-expermental-protocol](abstract-expermental-protocol.png) -->
-<figure>
-  <img src="abstract-expermental-protocol.png" alt="my alt text" width="400"/>
-  <!-- <figcaption>Experimental setup overview.</figcaption> -->
-</figure>
+### Step 3: Create Conda Environment
+
+Navigate to the GroupMouseTrack folder in the Anaconda Command Prompt using the following command:
+
+```sh
+cd C:\Users\YourUserName\Desktop\GroupMouseTrack
+```
+You can also use a trick to get the location right by holding SHIFT and right-clicking and then selecting "Copy as path."
+
+Create a conda Python virtual [environment](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html), which includes all the required packages by typing the following command:
+
+```sh
+conda env create -f group_mouse_track.yaml
+```
+You can now use this environment from anywhere on your computer without going back into the conda folder. To activate the environment, run the following command:
+
+```sh
+activate GroupMouseTrack
+```
+Now, you should see `(GroupMouseTrack)` on the left of your terminal screen. Note that there is no need to run install python or DeeLabCut as it is already installed.
+
+
+
 
 ## Stage 1: Data Acquisition
 ### 1. RFID Detection
@@ -120,7 +149,7 @@ To test the camera module, follow these steps:
 
 This command captures an image using the camera and saves it as "image.jpg" in the current directory after a 5-second delay. If everything is working correctly, a preview from the camera should appear on the display before it captures the image and then shuts down the camera.
 
-### 2.3. Starting Recording
+### 2.3. Start Recording
 The PC acts as the server and waits for a connection from the client (RPi). To enable communication between the PC and the PI, set static IP addresses on both sides.
 
 Go to Settings > Ethernet > Change adapter options > Select Ethernet > Properties > Select Internet Protocol Version 4 (TCP/IPv4) and enter IP address for example: 192.168.10.19 and subnet mask: (todo). On the RPi side, set the IP address for example to: 192.168.10.18
@@ -137,7 +166,7 @@ todo: add path to the serve.py and client.py to the explainations.
 Run `server.py` on the PC and `client.py` on the RPi to start the recording. The recorded video will be saved to a new directory named after the time of the recording session. The directory will contain the video (`date@time.H264`) and the timestamp (`date@time.start_ts.txt`) of the first video frame. The video file will be used for tracking using DLC, and the text file will be used to synchronize the video with RFID data for ID matching.
 
 
-To start listening to the client connection, run `server.py` on the PC:
+First, start listening to the client connection by running `server.py` on the terminal of your PC:
 
 ```sh
 python server.py
@@ -148,16 +177,17 @@ To start the recording, run `client.py` on the RPi:
 ```sh
 python client.py
 ```
+To stop the recording, press `ctrl + c` on any of the terminals. This will terminate the recording process on both the PC and the RPi.
 
-The duration of the recording, the frame rate, and the resolution can be adapted in the `client.py` script. Default values are set to 24 hours, 25 fps, and 1280x720 pixels.
+The duration of the recording, the frame rate and resolution can be adapted in the `client.py` script. The default values are set to 24 hours, 25 fps, and 1280x720 pixels.
 
-    Note: During the recording session, there might be several seconds of latency, which is normal. This occurs because media players buffer several seconds to protect against unstable network streams. 
+Note: During the recording session, there might be several seconds of latency, which is normal. This occurs because media players buffer several seconds to protect against unstable network streams. 
 
 More information can be found [here.](https://picamera.readthedocs.io/en/release-1.13/recipes1.html#recording-to-a-network-stream)
 
 
-# Stage II: Pose estimation and multi-animal tracking
-To perform pose estimation, DeepLabCut (DLC) need to be installed. DLC is a toolbox for markerless pose estimation of animals performing various tasks. As long as you can see (label) what you want to track, you can use this toolbox, as it is animal and object agnostic. A short development and application summary can be found [here](https://deeplabcut.github.io/DeepLabCut). 
+# Stage 2: Pose estimation and multi-animal tracking
+To perform pose estimation, DLC need to be installed.
 
 ## Configuration
 Install DeepLabCut by typing the following in your terminal:

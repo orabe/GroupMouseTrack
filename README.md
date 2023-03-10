@@ -1,3 +1,8 @@
+# GroupMouseTrack (GMT)
+GMT is aimed at facilitating the study of mouse behavior in social interactions. GMT utilizes state-of-the-art technology to perform pose estimation, tracking, and identification of several interacting identical-looking mice, without the need for physical markers. The project applies an end-to-end solution based on Deep Neural Networks (DNN) with the help of DeepLabCut (DLC), a Python framework built on TensorFlow for tracking and localizing several mice bodyparts. Though not required for tracking, GMT provides a set of scripts that seamlessly integrate DLC with an RFID (Radio Frequency Identification) system. This allows for distinguishing between individuals by matching the their RFIDs with their positions in video, and automate periodic correction of potential misidentifications (ID switches) made by the trained Deep Neural Network. This approach eliminates the need for manual inspection. 
+
+todo: add demo gif here.
+
 # Table of Contents
 [1. Motivation](#motivation)
 
@@ -5,44 +10,27 @@
 
 [2. Experimental setup](#Experimental-setup)
 
-GMT is aimed at facilitating the study of mouse behavior in social interactions. GMT utilizes state-of-the-art technology to perform pose estimation, tracking, and identification of several interacting identical-looking mice, without the need for physical markers. The project applies an end-to-end solution based on Deep Neural Networks (DNN) with the help of DeepLabCut (DLC), a Python framework built on TensorFlow for tracking and localizing several mice bodyparts. Though not required for tracking, GMT provides a set of scripts that seamlessly integrate DLC with an RFID (Radio Frequency Identification) system. This allows for distinguishing between individuals by matching the their RFIDs with their positions in video, and automate periodic correction of potential misidentifications (ID switches) made by the trained Deep Neural Network. This approach eliminates the need for manual inspection. 
-
-todo: add demo gif here.
-
 # Overview
-The project can be used to record videos of laboratory mice in a homecage suited on an arena of RFID sensors for prolonged periods, and allows for the analysis of new videos from similar experimental setups.
+The project can be used to record videos of laboratory mice in a homecage suited on an arena of RFID sensors for prolonged periods, and allows for the analysis of new videos from similar experimental setups. The project scripts have been designed to be scalable, customizable, and user-friendly. Additionally, it incorporates an automated method that allows the user to specify the positions of RFID readers dynamically on the video frame without requiring any prior configuration. This feature is particularly useful for maintaining consistency while adjusting the camera position. Although the default number of RFID readers is eight, the scripts can accommodate any number of RFID readers. The trained model has been developed on images containing three mice, but this is not an absolute limit. Users can perform experiments with more or fewer mice of any coat color during inference.
 
-The project scripts have been designed to be scalable, customizable, and user-friendly. Additionally, it incorporates an automated method that allows the user to specify the positions of RFID readers dynamically on the video frame without requiring any prior configuration. This feature is particularly useful for maintaining consistency while adjusting the camera position. Although the default number of RFID readers is eight, the scripts can accommodate any number of RFID readers.
+The project consists of four main stages that are independent of each other:
 
-The trained model has been developed on images containing three mice, but this is not an absolute limit. Users can perform experiments with more or fewer mice of any coat color during inference.
+**Stage 1: Data Acquisition:**
+  
+  **1.1. Video Recording**  
+    In this stage, you will learn how to record video data. If you already have video data and do not need to acquire new data, you can skip this step and move on to the next step.
 
-
-<!-- The Project uses a single, low-cost camera (todo: name of camera)  -->
-<!-- 820 𝑐𝑚2 cage. -->
-<!-- The final model we provide achieved a test error of 4.9 pixels, which is similar to the labelling variability between humans (5.2 pixels). -->
-
----
-
-The project consists of four main stages that are independent of each other but should be run in the right order.
-
-* Stage 1: Data Acquisition:
-  - 1.1. Video Recording    
-    In this stage, you will learn how to record video data. If you already have video data and do not need to acquire new data, you can skip this step and move on to the next sub-stage.
-
-
-  - 1.2. RFID Detecting:
+  **1.2. RFID Detecting**  
     This stage explains how to gather RFID detections, although RFID data is not required for the tracking process (at stage 2). It is only required for the identification process (at stage 3 and 4).
 
-* Stage 2: Pose Estimation and Multi-Animal Tracking:
+**Stage 2: Pose Estimation and Multi-Animal Tracking**  
 In this stage, the recorded videos will be analyzed and evaluated using the DLC tool. The trained model will be used to estimate the postures and movements of each animal in the video. The final output will be tracks of postures for each individual as h5/CSV files and labeled videos with dummy/initial identities.
 
-Stage 3: Animal Identification:
-In this stage, the DLC dummy IDs will be matched and replaced with their associated RFID tags in order to identify the animals.
+**Stage 3: Animal Identification**  
+The DLC dummy IDs will be matched and replaced with their associated RFID tags in order to identify the animals.
 
-Stage 4: Identity Verification:
+**Stage 4: Identity Verification**
 Finally, potential ID-switches between individuals made by DLC will be detected and corrected in order to ensure accurate identification.
-
-
 
 
 
@@ -297,3 +285,10 @@ walks you through your own dataset
 No specific computer/cameras/videos are required
 
 If you have any questions or issues during the process, please refer to the project's documentation or reach out for help.
+
+---
+<!-- The Project uses a single, low-cost camera (todo: name of camera)  -->
+<!-- 820 𝑐𝑚2 cage. -->
+<!-- The final model we provide achieved a test error of 4.9 pixels, which is similar to the labelling variability between humans (5.2 pixels). -->
+
+---

@@ -20,6 +20,7 @@ todo..
 The project can be used to record videos of laboratory mice in a homecage suited on an arena of RFID sensors for prolonged periods, and allows for the analysis of new videos from similar experimental setups. The project scripts have been designed to be scalable, customizable, and user-friendly. Additionally, it incorporates an automated method that allows the user to specify the positions of RFID readers dynamically on the video frame without requiring any prior configuration. This feature is particularly useful for maintaining consistency while adjusting the camera position. Although the default number of RFID readers is eight, the scripts can accommodate any number of RFID readers. The trained model has been developed on images containing three mice, but this is not an absolute limit. Users can perform experiments with more or fewer mice of any coat color during inference.
 
 ## Repository Contents
+```
 GroupMouseTrack:
   ├───video_recording
   │   ├───server.py
@@ -33,7 +34,7 @@ GroupMouseTrack:
   │       └───JUPYTER_template.ipynb
   ├───RFID
   └───main.py
-
+```
 # Workflow
 The project consists of four main stages that are independent of each other:
 

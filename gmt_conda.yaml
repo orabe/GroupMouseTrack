@@ -1,0 +1,19 @@
+# GroupMouseTrack.yaml
+# GroupMouseTrack conda enviroment
+
+# install: conda env create -f DEEPLABCUT.yaml
+# update:  conda env update -f DEEPLABCUT.yaml
+
+name: GMT
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - pip
+  - ipython
+  - jupyter
+  - nb_conda
+  - ffmpeg
+  - pip:
+    - "deeplabcut[gui,tf] == 2.2.2"
